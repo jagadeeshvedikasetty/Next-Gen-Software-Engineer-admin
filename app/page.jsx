@@ -218,11 +218,16 @@ export default function AdminDashboard() {
                   ) : (
                     <div style={{ width: 100, height: 100, borderRadius: '50%', background: '#ccc', margin: '0 auto 10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>No Image</div>
                   )}
-                  <div>
+                  <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
                     <input type="file" accept="image/*" ref={fileInputRef} onChange={uploadPhoto} disabled={uploading} style={{ display: 'none' }} />
                     <button type="button" className="btn btn-secondary" onClick={() => fileInputRef.current.click()} disabled={uploading}>
                       {uploading ? 'Uploading...' : 'Upload Photo'}
                     </button>
+                    {profile.photo_url && (
+                      <button type="button" className="btn btn-danger" onClick={() => setProfile({ ...profile, photo_url: '' })}>
+                        Remove
+                      </button>
+                    )}
                   </div>
                 </div>
                 
