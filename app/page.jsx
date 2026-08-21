@@ -43,13 +43,19 @@ export default function AdminDashboard() {
   const handleProfileSave = async (e) => {
     e.preventDefault();
     try {
+      const payload = {
+        name: profile.name,
+        bio: profile.bio,
+        photo_url: profile.photo_url
+      };
+
       // Check if profile exists
       const { data: existing } = await supabase.from('profile').select('id').limit(1).single();
       
       if (existing) {
-        await supabase.from('profile').update(profile).eq('id', existing.id);
+        await supabase.from('profile').update(payload).eq('id', existing.id);
       } else {
-        await supabase.from('profile').insert([profile]);
+        await supabase.from('profile').insert([payload]);
       }
       alert("Profile updated successfully!");
     } catch (error) {
